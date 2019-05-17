@@ -5,8 +5,8 @@
 What is a sales funnel? And why is it important? A sales funnel is a path that your website's visitors take before purchasing a product. If you don’t understand your sales funnel, you can’t optimize it. Building a great sales funnel can influence how visitors move through the funnel and whether they eventually convert. In this little demo I will be showing you how to build a simple, one-page sales funnel using Node JS, Cosmic JS, and Stripe for handling credit card payments.
 
 ## TL;DR
-* <a href="https://crowd-pitch.cosmicapp1.co/" target="_blank">Demo</a>
-* <a href="https://github.com/mtermoul/crowd-pitch" target="_blank">Source code</a>
+* <a href="https://cosmicjs.com/apps/single-page-sales-funnel" target="_blank">Demo</a>
+* <a href="https://github.com/cosmicjs/nodejs-sales-page" target="_blank">Source code</a>
 * <a href="https://stripe.com/docs/stripe-js/elements/quickstart/" target="_blank">Stripe</a>
 * <a href="https://cosmicjs.com/" target="_blank">Cosmic JS</a>
 
@@ -28,7 +28,7 @@ In order for you to clone this application and have your own custom copy, you ne
 * Then you need to clone the github repo. Open the terminal window and type:
 
 ```
-git clone https://github.com/cosmicjs/crowd-pitch
+git clone https://github.com/cosmicjs/nodejs-sales-page
 cd crowd-pitch
 npm install
 ```
