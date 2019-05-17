@@ -302,11 +302,13 @@ As most marketers have come to realize, the cost of acquiring any quality traffi
 For the purpose of this app, I will add two `style.css` files and once the user visits the site I will be randomly selecting one stylesheet. The stylesheet selection will affect how the color theme will look like. So basically the user can see either version A of the site or version B.
 
 ```
-# server.js
+// server.js
 app.get('/', async function(req, res) {
     ...
-    const pageVeriant = Math.floor(Math.random() * 2);
-    res.locals.pageB = (pageVeriant === 1 ? true : false);
+    if (req.session.pageVariant === undefined) {
+        req.session.pageVariant = Math.floor(Math.random() * 2);
+    }
+    res.locals.pageB = (req.session.pageVariant === 1 ? true : false);
     res.render('home');
 });
 ```
@@ -316,9 +318,9 @@ Then we load either style A or B on the `main.handlebars` file like this:
 ```
 ...
     {{#if pageB }}
-    <link rel="stylesheet" href="css/styleB.css">
+       <link rel="stylesheet" href="css/styleB.css">
     {{else }}
-    <link rel="stylesheet" href="css/style.css">
+       <link rel="stylesheet" href="css/style.css">
     {{/if}}
 ...
 ```
@@ -332,13 +334,18 @@ We also have a javascript variable that will be used during the payment process 
 then we save the page source along the stripe charge on the server post method.
 
 ```
-stripe.charges.create({
-    amount: Number(req.body.amount) * 100, // amount in cents
-    currency: 'usd',
-    description: `${req.body.firstName} ${req.body.lastName} (${req.body.email}) - ${req.body.orderSummary} - Source: ${req.body.pageSource}`,
-    source: req.body.stripeToken,
-    statement_descriptor: 'CROWD-PITHC GOOG CASHM'
-})
+// server.js
+...
+app.post('/pay', function(req, res) {
+    stripe.charges.create({
+        amount: Number(req.body.amount) * 100, // amount in cents
+        currency: 'usd',
+        description: `${req.body.firstName} ${req.body.lastName} (${req.body.email}) - ${req.body.orderSummary} - Source: ${req.body.pageSource}`,
+        source: req.body.stripeToken,
+        statement_descriptor: 'CROWD-PITHC GOOG CASHM'
+    })
+    ...
+});
 ```
 
 ## Conclusion
